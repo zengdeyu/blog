@@ -7,11 +7,11 @@
       <Row>
         <Col class="date">{{date.substr(0,10)}}</Col>
         <Col class="title">{{title}}</Col>
-        <Col class="aImg" :xs="{span:20,offset:2}" :md="{span:20,offset:2}" :xl="{span:20,offset:2}">
+        <Col class="aImg" :xs="{span:22,offset:1}" :md="{span:21,offset:1}" :xl="{span:22,offset:1}">
           <img :src="img" alt="">
         </Col>
-        <Col class="content" v-html="content" :xs="{span:20,offset:2}" :md="{span:20,offset:2}"
-             :xl="{span:20,offset:2}"></Col>
+        <Col class="content" v-html="content" :xs="{span:22,offset:1}" :md="{span:22,offset:1}"
+             :xl="{span:22,offset:1}"></Col>
       </Row>
     </Col>
     <Col class="sideBar" :xs="0" :md="0" :xl="5">
@@ -168,6 +168,12 @@
           line-height 1.2
           background-color $color-black
           color $color-blue
+          overflow-x scroll
+          -ms-overflow-style: none; //IE 10+
+          overflow: -moz-scrollbars-none; //Firefox
+        }
+        &>>>pre::-webkit-scrollbar{
+          display none
         }
         &>>>li{
           padding 5px
