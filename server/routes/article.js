@@ -201,7 +201,7 @@ router.get('/eachtotal',(req,res,next)=>{
 router.get('/search',(req,res,next)=>{
     var query={};
     if(req.query.title) {
-        query['title']=new RegExp(req.query.title);//模糊查询参数
+        query['title']=new RegExp(req.query.title,'i');//模糊查询参数
     }
     Article.find(query).then(req=>{
         responseData.success = true;
