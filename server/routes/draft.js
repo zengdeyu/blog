@@ -21,7 +21,7 @@ router.use((req, res, next) => {
 
 //获取文章列表
 router.get('/list', (req, res, next) => {
-    Draft.find().then((articleList) => {
+    Draft.find().sort({id:-1}).then((articleList) => {
         responseData.success = true;
         responseData.data = articleList;
         responseData.message = '请求成功'

@@ -31,7 +31,7 @@ router.post('/uploads',upload.single('img'),(req,res,next)=>{
 //获取文章列表
 router.get('/list', (req, res, next) => {
     if(req.query.lastId){
-        Article.find({'_id':{$gt:req.query.lastId}}).limit(10).then((articleList) => {
+        Article.find({'_id':{$gt:req.query.lastId}}).sort({id:-1}).limit(10).then((articleList) => {
             responseData.success = true;
             responseData.data = articleList;
             responseData.message = '请求成功';
@@ -42,7 +42,7 @@ router.get('/list', (req, res, next) => {
         })
     }
     else{
-        Article.find().limit(10).then((articleList)=> {
+        Article.find().sort({id:-1}).limit(10).then((articleList)=> {
             responseData.success = true;
             responseData.data = articleList;
             responseData.message = '请求成功';
@@ -56,7 +56,7 @@ router.get('/list', (req, res, next) => {
 
 //获取所有文章列表
 router.get('/all', (req, res, next) => {
-        Article.find().then((articleList)=> {
+        Article.find().sort({id:-1}).then((articleList)=> {
             responseData.success = true;
             responseData.data = articleList;
             responseData.message = '请求成功';
@@ -199,7 +199,6 @@ router.get('/eachtotal',(req,res,next)=>{
 
 //搜索文章
 router.get('/search',(req,res,next)=>{
-    console.log(req.query.title)
     var query={};
     if(req.query.title) {
         query['title']=new RegExp(req.query.title);//模糊查询参数
