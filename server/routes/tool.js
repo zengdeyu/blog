@@ -29,7 +29,7 @@ router.post('/uploads',upload.single('img'),(req,res,next)=>{
 //获取文章列表
 router.get('/list',(req,res,next)=>{
     if(req.query.lastId){
-        Tool.find({'_id':{$gt:req.query.lastId}}).sort({id:-1}).limit(10).then((articleList) => {
+        Tool.find({'_id':{$lt:req.query.lastId}}).sort({id:-1}).limit(10).then((articleList) => {
             responseData.success = true;
             responseData.data = articleList;
             responseData.message = '请求成功';
