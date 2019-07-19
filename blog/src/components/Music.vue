@@ -29,50 +29,61 @@
       return {
         pageTitle: '音乐',
         source: 'tencent',
-        data:{},
-        currentPage:1,
-        getflag:true
+        data: {},
+        currentPage: 1,
+        getflag: true
       }
     },
-  mounted() {
-      var _that=this;
-    window.addEventListener("scroll", function (event) {
-      var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-      let bottom=document.documentElement.scrollHeight-(document.documentElement.clientHeight + scrollTop);
-      if(bottom<=60){
-        clearTimeout(this.timer);
-        this.timer=setTimeout(()=>{
-          console.log(_that.currentPage++)
-          if(_that.getflag===true){
-            getDisc(_that.source, 'hot', {categoryId: 10000000, sortId: 5, pageSize: 10, page: _that.currentPage+1}).then(res => {
-              let listData=formatDiscs(_that.source,res.data);
-              for(let item of listData){
-                _that.data.push(item);
+    mounted() {
+      var _that = this;
+      window.addEventListener("scroll", function (event) {
+        var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+        let bottom = document.documentElement.scrollHeight - (document.documentElement.clientHeight + scrollTop);
+        if (bottom <= 60) {
+          clearTimeout(this.timer);
+          this.timer = setTimeout(() => {
+            if (_that.getflag === true) {
+              let params = {};
+              if (_that.source === 'tencent') {
+                params = {
+                  categoryId: 10000000, sortId: 5, pageSize: 15, page: _that.currentPage + 1
+                }
+              } else{
+                params = {
+                  cat: '全部',
+                  pageSize: 15,
+                  page: _that.currentPage + 1
+                }
               }
-              _that.getflag=true;
-            }).catch(e => {
-              console.log(e)
-            })
-          }
-          _that.getflag=false
-        },100)
+              getDisc(_that.source, 'hot', params).then(res => {
+                let listData = formatDiscs(_that.source, res.data);
+                for (let item of listData) {
+                  _that.data.push(item);
+                }
+                _that.getflag = true;
+              }).catch(e => {
+                console.log(e)
+              })
+            }
+            _that.getflag = false
+          }, 100)
 
-      }
-    });
-  },
-    created(){
-      this.getList(this.source,'hot',{categoryId: 10000000, sortId: 5, pageSize: 15, page: this.currentPage});
+        }
+      });
+    },
+    created() {
+      this.getList(this.source, 'hot', {categoryId: 10000000, sortId: 5, pageSize: 15, page: this.currentPage});
     },
     methods: {
-      getList(source,todo,params){
+      getList(source, todo, params) {
         getDisc(source, todo, params).then(res => {
-          this.data=formatDiscs(this.source,res.data)
+          this.data = formatDiscs(this.source, res.data)
         }).catch(e => {
           console.log(e)
         })
       },
       selectPlatform(name) {
-        this.source=name;
+        this.source = name;
         switch (this.source) {
           case "tencent": {
             let params = {
@@ -81,16 +92,16 @@
               pageSize: 15,
               page: 1
             };
-            this.getList(this.source,'hot',params);
+            this.getList(this.source, 'hot', params);
             break
           }
-          case 'netease':{
-            let params={
-              cat:'全部',
-              pageSize:15,
-              page:0
+          case 'netease': {
+            let params = {
+              cat: '全部',
+              pageSize: 45,
+              page: 0
             };
-            this.getList(this.source,'hot',params);
+            this.getList(this.source, 'hot', params);
             break
           }
         }

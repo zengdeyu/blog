@@ -129,6 +129,51 @@
           min-height 100%
         }
       }
+      .content{
+        &>>>h1{
+          font-size 24px
+        }
+        &>>>h2{
+          font-size 22px
+        }
+        &>>>h3{
+          font-size 20px
+        }
+        &>>>h4{
+          font-size 18px
+        }
+        &>>>h5{
+          font-size 16px
+        }
+        &>>>h6{
+          font-size 14px
+        }
+        &>>>h1,&>>>h2,&>>>h3,&>>>h4,&>>>h5,&>>>h6{
+          font-weight bold
+          padding 20px 0
+        }
+        &>>>p{
+          padding 10px
+          line-height 1.4
+          position relative
+          img{
+            max-width 100%
+            height 100%
+            display block
+            margin 0 auto
+          }
+        }
+        &>>>pre{
+          padding 15px
+          line-height 1.2
+          background-color $color-black
+          color $color-blue
+        }
+        &>>>li{
+          padding 5px
+          font-size 18px
+        }
+      }
     }
 
     .sideBar {
