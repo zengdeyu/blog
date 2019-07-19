@@ -7,7 +7,6 @@ var proxy=require('http-proxy-middleware');
 //跨域插件
 var cors=require('cors');
 
-
 //路由配置
 var indexRouter = require('./routes/index');
 var articleRouter = require('./routes/article');
@@ -20,13 +19,7 @@ var timeRouter = require('./routes/servertime');
 
 
 var app = express();
-//设置跨域访问
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//     next();
-// });
+
 
 app.use(logger('dev'));
 app.use(cors())
@@ -39,27 +32,27 @@ app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/netease',proxy({
-    target:'http://23333333.itooi.cn',
+    target:'https://23333333.itooi.cn',
     changeOrigin:true
 }));
 app.use('/tencent',proxy({
-    target:'http://23333333.itooi.cn',
+    target:'https://23333333.itooi.cn',
     changeOrigin:true
 }));
 app.use('/kugou',proxy({
-    target:'http://23333333.itooi.cn',
+    target:'https://23333333.itooi.cn',
     changeOrigin:true
 }));
 app.use('/kuwo',proxy({
-    target:'http://23333333.itooi.cn',
+    target:'https://23333333.itooi.cn',
     changeOrigin:true
 }));
 app.use('/kuwo',proxy({
-    target:'http://23333333.itooi.cn',
+    target:'https://23333333.itooi.cn',
     changeOrigin:true
 }));
 app.use('/one',proxy({
-    target:'http://23333333.itooi.cn',
+    target:'https://23333333.itooi.cn',
     changeOrigin:true
 }))
 
@@ -72,6 +65,9 @@ app.use('/tool', toolRouter);
 app.use('/user', userRouter);
 app.use('/time', timeRouter);
 
+app.get('/test',function () {
+    res.send('https')
+})
 
 
 
