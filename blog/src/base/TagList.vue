@@ -29,6 +29,9 @@
       selectItem(e) {
         this.$router.push({
           path: `/tag/${e.currentTarget.getAttribute('data-tag')}`
+
+
+
         })
       }
     }
@@ -43,10 +46,12 @@
     .tag_name {
       text-align center
       cursor pointer
+      padding: 15px 0
 
       & i, & span {
         color $color-6
         font-size 22px
+        font-weight bold
       }
 
       &:hover i, &:hover span {
@@ -55,3 +60,4 @@
     }
   }
 </style>
+
